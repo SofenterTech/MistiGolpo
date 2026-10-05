@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: mistigolpo_db
+    environment:
+      POSTGRES_USER: misti_user
+      POSTGRES_PASSWORD: misti_password
+      POSTGRES_DB: mistigolpo_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    container_name: mistigolpo_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://misti_user:misti_password@db:5432/mistigolpo_db
+      - JWT_SECRET_KEY=dev_secret_key_12345
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: mistigolpo_frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

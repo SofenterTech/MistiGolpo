@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background-color: #FFF9F6;
+  color: #2D2523;
+  font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+}
