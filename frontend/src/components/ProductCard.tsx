@@ -29,29 +29,29 @@ export const ProductCard: React.FC<{ product: any }> = ({ product }) => {
   return (
     <Link
       to={`/products/${product.slug}`}
-      className="group bg-white rounded-2xl border border-[#F4D6D2] overflow-hidden shadow-sm hover:shadow-md hover:border-[#8B3A3A] transition-all flex flex-col justify-between"
+      className="group bg-white rounded-lg border border-[#E6E2F3] overflow-hidden shadow-sm hover:shadow-md hover:border-[#E5097F] transition-all flex flex-col justify-between"
     >
       <div>
         {/* Image Container */}
-        <div className="relative aspect-square overflow-hidden bg-[#FFF9F6]">
+        <div className="relative aspect-square overflow-hidden bg-[#F7F8F9]">
           <img
             src={primaryImage}
             alt={product.name_en}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {product.discount_price && (
-            <span className="absolute top-3 left-3 bg-[#8B3A3A] text-white text-[10px] font-bold px-2 py-1 rounded-md">
-              {Math.round(((product.base_price - product.discount_price) / product.base_price) * 100)}% OFF
+            <span className="absolute top-3 left-3 bg-[#E5097F] text-white text-[10px] font-bold px-2 py-1 rounded-md">
+              {Math.round(((product.base_price - product.discount_price) / product.base_price) * 100)}{t('% ছাড়', '% OFF')}
             </span>
           )}
         </div>
 
         {/* Info */}
         <div className="p-4 space-y-1.5">
-          <h3 className="font-bold text-sm text-[#2D2523] group-hover:text-[#8B3A3A] transition-colors line-clamp-1">
+          <h3 className="font-bold text-sm text-[#222222] group-hover:text-[#E5097F] transition-colors line-clamp-1">
             {t(product.name_bn, product.name_en)}
           </h3>
-          <p className="text-xs text-[#756966] line-clamp-2">
+          <p className="text-xs text-[#666666] line-clamp-2">
             {t(product.description_bn || '', product.description_en || '')}
           </p>
         </div>
@@ -60,18 +60,18 @@ export const ProductCard: React.FC<{ product: any }> = ({ product }) => {
       {/* Footer / Price & CTA */}
       <div className="p-4 pt-0 flex items-center justify-between border-t border-transparent">
         <div>
-          <span className="text-sm font-extrabold text-[#8B3A3A]">
+          <span className="text-sm font-extrabold text-[#E5097F]">
             ৳{product.discount_price || product.base_price}
           </span>
           {product.discount_price && (
-            <span className="text-xs text-[#756966] line-through ml-1.5">
+            <span className="text-xs text-[#666666] line-through ml-1.5">
               ৳{product.base_price}
             </span>
           )}
         </div>
         <button
           onClick={handleAddToCart}
-          className="bg-[#FFF3E8] hover:bg-[#8B3A3A] text-[#8B3A3A] hover:text-white p-2 rounded-full transition-colors"
+          className="bg-[#F1EEFB] hover:bg-[#E5097F] text-[#E5097F] hover:text-white p-2 rounded-full transition-colors"
           title={t('কার্টে যোগ করুন', 'Add to Cart')}
         >
           <ShoppingBag className="w-4 h-4" />

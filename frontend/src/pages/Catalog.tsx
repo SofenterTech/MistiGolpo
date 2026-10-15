@@ -44,30 +44,30 @@ export const Catalog: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
       {/* Page Header */}
-      <div className="border-b border-[#F4D6D2] pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="border-b border-[#E6E2F3] pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#8B3A3A]">
+          <h1 className="text-2xl font-bold text-[#E5097F]">
             {searchQuery
               ? t(`"${searchQuery}" এর অনুসন্ধান ফলাফল`, `Search results for "${searchQuery}"`)
               : selectedCategory
               ? t('ক্যাটাগরি কেক সমূহ', 'Category Cakes')
               : t('সব কেক সমূহ', 'All Cakes')}
           </h1>
-          <p className="text-xs text-[#756966] mt-1">
+          <p className="text-xs text-[#666666] mt-1">
             {t(`${products.length} টি সুস্বাদু কেক পাওয়া গিয়েছে`, `Found ${products.length} delicious cakes`)}
           </p>
         </div>
 
         {/* Sort */}
         <div className="flex items-center gap-2 text-xs">
-          <span className="font-semibold text-[#756966]">{t('সাজান:', 'Sort By:')}</span>
+          <span className="font-semibold text-[#666666]">{t('সাজান:', 'Sort By:')}</span>
           <select
             value={sortBy}
             onChange={(e) => {
               searchParams.set('sort', e.target.value);
               setSearchParams(searchParams);
             }}
-            className="bg-white border border-[#F4D6D2] rounded-lg px-3 py-1.5 text-xs text-[#2D2523] focus:outline-none"
+            className="bg-white border border-[#E6E2F3] rounded-lg px-3 py-1.5 text-xs text-[#222222] focus:outline-none"
           >
             <option value="">{t('নতুন থেকে পুরাতন', 'Newest')}</option>
             <option value="price_asc">{t('দাম: কম থেকে বেশি', 'Price: Low to High')}</option>
@@ -78,8 +78,8 @@ export const Catalog: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Category Sidebar */}
-        <div className="bg-white p-5 rounded-2xl border border-[#F4D6D2] h-fit space-y-4">
-          <h3 className="font-bold text-sm text-[#8B3A3A] flex items-center gap-2">
+        <div className="bg-white p-5 rounded-lg border border-[#E6E2F3] h-fit space-y-4">
+          <h3 className="font-bold text-sm text-[#E5097F] flex items-center gap-2">
             <Filter className="w-4 h-4" /> {t('ক্যাটাগরি', 'Categories')}
           </h3>
           <div className="space-y-1 text-xs">
@@ -89,7 +89,7 @@ export const Catalog: React.FC = () => {
                 setSearchParams(searchParams);
               }}
               className={`w-full text-left px-3 py-2 rounded-lg font-medium transition-colors ${
-                !selectedCategory ? 'bg-[#8B3A3A] text-white' : 'hover:bg-[#FFF3E8] text-[#2D2523]'
+                !selectedCategory ? 'bg-[#E5097F] text-white' : 'hover:bg-[#F1EEFB] text-[#222222]'
               }`}
             >
               {t('সকল কেক', 'All Cakes')}
@@ -102,7 +102,7 @@ export const Catalog: React.FC = () => {
                   setSearchParams(searchParams);
                 }}
                 className={`w-full text-left px-3 py-2 rounded-lg font-medium transition-colors ${
-                  selectedCategory === cat.slug ? 'bg-[#8B3A3A] text-white' : 'hover:bg-[#FFF3E8] text-[#2D2523]'
+                  selectedCategory === cat.slug ? 'bg-[#E5097F] text-white' : 'hover:bg-[#F1EEFB] text-[#222222]'
                 }`}
               >
                 {t(cat.name_bn, cat.name_en)}
@@ -114,13 +114,13 @@ export const Catalog: React.FC = () => {
         {/* Product Grid */}
         <div className="md:col-span-3">
           {loading ? (
-            <div className="text-center py-12 text-xs text-[#756966]">
+            <div className="text-center py-12 text-xs text-[#666666]">
               {t('লোড হচ্ছে...', 'Loading cakes...')}
             </div>
           ) : products.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-2xl border border-[#F4D6D2] p-8 space-y-2">
-              <p className="text-sm font-bold text-[#8B3A3A]">{t('কোন কেক পাওয়া যায়নি', 'No cakes found')}</p>
-              <p className="text-xs text-[#756966]">{t('অন্য কোনো ক্যাটাগরি বা কীওয়ার্ড দিয়ে চেষ্টা করুন।', 'Try selecting another category or search term.')}</p>
+            <div className="text-center py-12 bg-white rounded-lg border border-[#E6E2F3] p-8 space-y-2">
+              <p className="text-sm font-bold text-[#E5097F]">{t('কোন কেক পাওয়া যায়নি', 'No cakes found')}</p>
+              <p className="text-xs text-[#666666]">{t('অন্য কোনো ক্যাটাগরি বা কীওয়ার্ড দিয়ে চেষ্টা করুন।', 'Try selecting another category or search term.')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

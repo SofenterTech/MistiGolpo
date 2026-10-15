@@ -44,7 +44,7 @@ def create_order(order_in: OrderCreate, db: Session = Depends(get_db)):
                 discount = coupon.max_discount_amount
 
     delivery_fee = 60.0
-    if order_in.delivery_area.lower() in ["suburb", "outside_dhaka"]:
+    if order_in.delivery_area.lower() in ["suburb", "outside_sylhet"]:
         delivery_fee = 120.0
 
     total_amount = max(0.0, subtotal - discount + delivery_fee)

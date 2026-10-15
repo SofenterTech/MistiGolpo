@@ -7,14 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Monginis-inspired palette
         brand: {
-          primary: "#8B3A3A",
-          secondary: "#F4D6D2",
-          bg: "#FFF9F6",
-          cream: "#FFF3E8",
-          accent: "#D9A441",
-          text: "#2D2523",
-          muted: "#756966",
+          primary: "#E5097F",
+          "primary-dark": "#C40770",
+          secondary: "#20134B",
+          lavender: "#E2DEF5",
+          "lavender-light": "#F1EEFB",
+          line: "#E6E2F3",
+          bg: "#FFFFFF",
+          surface: "#F7F8F9",
+          text: "#222222",
+          muted: "#666666",
           success: "#3F7D58",
           error: "#B43D3D"
         }

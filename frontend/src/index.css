@@ -2,9 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Monginis-inspired theme: pink #E5097F, deep indigo #20134B, lavender #E2DEF5, white surfaces */
+:root {
+  --mg-pink: #E5097F;
+  --mg-pink-dark: #C40770;
+  --mg-indigo: #20134B;
+  --mg-lavender: #E2DEF5;
+  --mg-lavender-light: #F1EEFB;
+  --mg-line: #E6E2F3;
+  --mg-surface: #F7F8F9;
+  --mg-text: #222222;
+  --mg-muted: #666666;
+}
+
 body {
   margin: 0;
-  background-color: #FFF9F6;
-  color: #2D2523;
-  font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+  background-color: #FFFFFF;
+  color: var(--mg-text);
+  /* Roboto for Latin text (as on monginis.net); Bengali glyphs fall through to Hind Siliguri */
+  font-family: 'Roboto', 'Hind Siliguri', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+
+::selection {
+  background: var(--mg-pink);
+  color: #FFFFFF;
 }

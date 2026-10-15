@@ -36,56 +36,56 @@ export const AdminDashboard: React.FC = () => {
     }
   };
 
-  if (loading) return <div className="text-center py-20 text-xs text-[#756966]">{t('অ্যাডমিন তথ্য লোড হচ্ছে...', 'Loading admin dashboard...')}</div>;
+  if (loading) return <div className="text-center py-20 text-xs text-[#666666]">{t('অ্যাডমিন তথ্য লোড হচ্ছে...', 'Loading admin dashboard...')}</div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-[#8B3A3A]">{t('অ্যাডমিন ড্যাশবোর্ড', 'Admin Dashboard')}</h1>
-        <p className="text-xs text-[#756966]">{t('মিষ্টি গল্পের বিক্রয় ও অর্ডার পরিচালনা করুন', 'Manage MistiGolpo sales, products, and customer orders')}</p>
+        <h1 className="text-2xl font-bold text-[#E5097F]">{t('অ্যাডমিন ড্যাশবোর্ড', 'Admin Dashboard')}</h1>
+        <p className="text-xs text-[#666666]">{t('মিষ্টি গল্পের বিক্রয় ও অর্ডার পরিচালনা করুন', 'Manage MistiGolpo sales, products, and customer orders')}</p>
       </div>
 
       {/* Stats Cards */}
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white p-4 rounded-2xl border border-[#F4D6D2]">
-            <span className="text-xs text-[#756966]">{t('মোট বিক্রয়', 'Total Revenue')}</span>
-            <p className="text-xl font-extrabold text-[#8B3A3A]">৳{stats.total_revenue}</p>
+          <div className="bg-white p-4 rounded-lg border border-[#E6E2F3]">
+            <span className="text-xs text-[#666666]">{t('মোট বিক্রয়', 'Total Revenue')}</span>
+            <p className="text-xl font-extrabold text-[#E5097F]">৳{stats.total_revenue}</p>
           </div>
-          <div className="bg-white p-4 rounded-2xl border border-[#F4D6D2]">
-            <span className="text-xs text-[#756966]">{t('মোট অর্ডার', 'Total Orders')}</span>
-            <p className="text-xl font-extrabold text-[#2D2523]">{stats.total_orders}</p>
+          <div className="bg-white p-4 rounded-lg border border-[#E6E2F3]">
+            <span className="text-xs text-[#666666]">{t('মোট অর্ডার', 'Total Orders')}</span>
+            <p className="text-xl font-extrabold text-[#222222]">{stats.total_orders}</p>
           </div>
-          <div className="bg-white p-4 rounded-2xl border border-[#F4D6D2]">
-            <span className="text-xs text-[#756966]">{t('পেন্ডিং অর্ডার', 'Pending Orders')}</span>
-            <p className="text-xl font-extrabold text-[#D9A441]">{stats.pending_orders}</p>
+          <div className="bg-white p-4 rounded-lg border border-[#E6E2F3]">
+            <span className="text-xs text-[#666666]">{t('পেন্ডিং অর্ডার', 'Pending Orders')}</span>
+            <p className="text-xl font-extrabold text-[#20134B]">{stats.pending_orders}</p>
           </div>
-          <div className="bg-white p-4 rounded-2xl border border-[#F4D6D2]">
-            <span className="text-xs text-[#756966]">{t('মোট কেক', 'Total Products')}</span>
+          <div className="bg-white p-4 rounded-lg border border-[#E6E2F3]">
+            <span className="text-xs text-[#666666]">{t('মোট কেক', 'Total Products')}</span>
             <p className="text-xl font-extrabold text-[#3F7D58]">{stats.total_products}</p>
           </div>
         </div>
       )}
 
       {/* Orders Table */}
-      <div className="bg-white rounded-3xl border border-[#F4D6D2] p-6 space-y-4">
-        <h2 className="font-bold text-sm text-[#8B3A3A]">{t('সাম্প্রতিক অর্ডার সমূহ', 'Recent Customer Orders')}</h2>
+      <div className="bg-white rounded-xl border border-[#E6E2F3] p-6 space-y-4">
+        <h2 className="font-bold text-sm text-[#E5097F]">{t('সাম্প্রতিক অর্ডার সমূহ', 'Recent Customer Orders')}</h2>
         <div className="overflow-x-auto text-xs">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[#F4D6D2] text-[#756966]">
-                <th className="py-2 px-3">Order ID</th>
-                <th className="py-2 px-3">Customer</th>
-                <th className="py-2 px-3">Phone</th>
-                <th className="py-2 px-3">Amount</th>
-                <th className="py-2 px-3">Status</th>
-                <th className="py-2 px-3">Action</th>
+              <tr className="border-b border-[#E6E2F3] text-[#666666]">
+                <th className="py-2 px-3">{t('অর্ডার আইডি', 'Order ID')}</th>
+                <th className="py-2 px-3">{t('গ্রাহক', 'Customer')}</th>
+                <th className="py-2 px-3">{t('ফোন', 'Phone')}</th>
+                <th className="py-2 px-3">{t('মূল্য', 'Amount')}</th>
+                <th className="py-2 px-3">{t('অবস্থা', 'Status')}</th>
+                <th className="py-2 px-3">{t('পরিবর্তন', 'Action')}</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((o) => (
-                <tr key={o.id} className="border-b border-gray-100 hover:bg-[#FFF9F6]">
-                  <td className="py-2 px-3 font-bold text-[#8B3A3A]">{o.order_number}</td>
+                <tr key={o.id} className="border-b border-gray-100 hover:bg-[#F7F8F9]">
+                  <td className="py-2 px-3 font-bold text-[#E5097F]">{o.order_number}</td>
                   <td className="py-2 px-3">{o.customer_name}</td>
                   <td className="py-2 px-3">{o.customer_phone}</td>
                   <td className="py-2 px-3 font-bold">৳{o.total_amount}</td>
@@ -94,7 +94,7 @@ export const AdminDashboard: React.FC = () => {
                     <select
                       value={o.order_status}
                       onChange={(e) => handleUpdateStatus(o.id, e.target.value)}
-                      className="bg-[#FFF9F6] border border-[#F4D6D2] rounded p-1 text-[11px]"
+                      className="bg-[#F7F8F9] border border-[#E6E2F3] rounded p-1 text-[11px]"
                     >
                       <option value="PENDING">PENDING</option>
                       <option value="CONFIRMED">CONFIRMED</option>
