@@ -1,83 +1,70 @@
-import random
-import datetime
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
-from typing import List
-from app.db.database import get_db
-from app.models.models import Order, OrderItem, Product, ProductVariant, Coupon, OrderStatusEnum, PaymentMethodEnum
-from app.schemas.schemas import OrderCreate, OrderResponse
+import uuid
+from backend.app.db.database import get_db
+from backend.app.models.product import Product
+from backend.app.models.order import Order, OrderItem
+from backend.app.models.coupon import Coupon
+from backend.app.schemas.schemas import OrderCreate, OrderOut
 
-router = APIRouter(prefix="/orders", tags=["Orders"])
+router = APIRouter(tags=["orders"])
 
-@router.post("", response_model=OrderResponse)
+@router.post("/orders", response_model=OrderOut)
 def create_order(order_in: OrderCreate, db: Session = Depends(get_db)):
-    if not order_in.items:
-        raise HTTPException(status_code=400, detail="Order must contain items")
-
     subtotal = 0.0
     order_items_to_create = []
 
-    for item in order_in.items:
-        product = db.query(Product).filter(Product.id == item.product_id).first()
-        if not product or not product.is_active:
-            raise HTTPException(status_code=400, detail=f"Product ID {item.product_id} unavailable")
+    for item_in in order_in.items:
+        product = db.query(Product).filter(Product.id == item_in.product_id, Product.is_active == True).first()
+        if not product:
+            raise HTTPException(status_code=400, detail=f"Product ID {item_in.product_id} not found")
 
         unit_price = product.discount_price if product.discount_price else product.base_price
-        variant_info = None
+        if item_in.weight_lb > 1.0:
+            unit_price = unit_price * (1.0 + (item_in.weight_lb - 1.0) * 0.8)
 
-        if item.variant_id:
-            variant = db.query(ProductVariant).filter(ProductVariant.id == item.variant_id).first()
-            if variant:
-                unit_price += variant.price_adjustment
-                variant_info = f"{variant.size_bn} / {variant.size_en}"
-
-        line_total = unit_price * item.quantity
-        subtotal += line_total
+        line_subtotal = unit_price * item_in.quantity
+        subtotal += line_subtotal
 
         order_items_to_create.append({
             "product_id": product.id,
             "product_name": product.name_bn,
-            "variant_info": variant_info,
+            "weight_lb": item_in.weight_lb,
             "unit_price": unit_price,
-            "quantity": item.quantity,
-            "total_price": line_total,
-            "cake_message": item.cake_message
+            "quantity": item_in.quantity,
+            "cake_message": item_in.cake_message
         })
 
-    # Calculate delivery fee
-    delivery_fee = 80.0 if "Dhaka" in order_in.delivery_district or "ঢাকা" in order_in.delivery_district else 150.0
-
-    # Coupon calculation
-    discount_amount = 0.0
+    discount = 0.0
     if order_in.coupon_code:
-        coupon = db.query(Coupon).filter(Coupon.code == order_in.coupon_code.upper(), Coupon.is_active == True).first()
+        coupon = db.query(Coupon).filter(Coupon.code == order_in.coupon_code, Coupon.is_active == True).first()
         if coupon and subtotal >= coupon.min_order_amount:
-            if coupon.discount_type == "PERCENT":
-                discount_amount = subtotal * (coupon.discount_value / 100.0)
-            else:
-                discount_amount = coupon.discount_value
+            discount = subtotal * (coupon.discount_percent / 100.0)
+            if coupon.max_discount_amount and discount > coupon.max_discount_amount:
+                discount = coupon.max_discount_amount
 
-    total_amount = max(0.0, subtotal + delivery_fee - discount_amount)
-    order_num = f"MG-{datetime.datetime.utcnow().strftime('%Y%m%d')}-{random.randint(1000, 9999)}"
+    delivery_fee = 60.0
+    if order_in.delivery_area.lower() in ["suburb", "outside_dhaka"]:
+        delivery_fee = 120.0
+
+    total_amount = max(0.0, subtotal - discount + delivery_fee)
+    order_number = f"MG-{uuid.uuid4().hex[:8].upper()}"
 
     order = Order(
-        order_number=order_num,
+        order_number=order_number,
         customer_name=order_in.customer_name,
         customer_phone=order_in.customer_phone,
         customer_email=order_in.customer_email,
-        delivery_division=order_in.delivery_division,
-        delivery_district=order_in.delivery_district,
-        delivery_area=order_in.delivery_area,
         delivery_address=order_in.delivery_address,
+        delivery_area=order_in.delivery_area,
         delivery_date=order_in.delivery_date,
         delivery_slot=order_in.delivery_slot,
+        payment_method=order_in.payment_method,
         subtotal=subtotal,
+        discount=discount,
         delivery_fee=delivery_fee,
-        discount_amount=discount_amount,
         total_amount=total_amount,
-        payment_method=PaymentMethodEnum(order_in.payment_method) if order_in.payment_method in PaymentMethodEnum.__members__ else PaymentMethodEnum.COD,
-        order_status=OrderStatusEnum.PENDING,
-        payment_status="PENDING"
+        notes=order_in.notes
     )
 
     db.add(order)
@@ -85,15 +72,51 @@ def create_order(order_in: OrderCreate, db: Session = Depends(get_db)):
     db.refresh(order)
 
     for item_data in order_items_to_create:
-        db.add(OrderItem(order_id=order.id, **item_data))
+        item = OrderItem(order_id=order.id, **item_data)
+        db.add(item)
 
     db.commit()
-    db.refresh(order)
-    return order
 
-@router.get("/track/{order_number}", response_model=OrderResponse)
-def track_order(order_number: str, db: Session = Depends(get_db)):
-    order = db.query(Order).filter(Order.order_number == order_number).first()
+    return OrderOut(
+        id=order.id,
+        order_number=order.order_number,
+        customer_name=order.customer_name,
+        customer_phone=order.customer_phone,
+        delivery_address=order.delivery_address,
+        delivery_area=order.delivery_area,
+        delivery_date=order.delivery_date,
+        delivery_slot=order.delivery_slot,
+        payment_method=order.payment_method,
+        payment_status=order.payment_status,
+        order_status=order.order_status,
+        subtotal=order.subtotal,
+        discount=order.discount,
+        delivery_fee=order.delivery_fee,
+        total_amount=order.total_amount,
+        created_at=order.created_at.strftime("%Y-%m-%d %H:%M:%S")
+    )
+
+@router.get("/orders/track", response_model=OrderOut)
+def track_order(order_number: str = Query(...), phone: str = Query(...), db: Session = Depends(get_db)):
+    order = db.query(Order).filter(Order.order_number == order_number, Order.customer_phone == phone).first()
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
-    return order
+
+    return OrderOut(
+        id=order.id,
+        order_number=order.order_number,
+        customer_name=order.customer_name,
+        customer_phone=order.customer_phone,
+        delivery_address=order.delivery_address,
+        delivery_area=order.delivery_area,
+        delivery_date=order.delivery_date,
+        delivery_slot=order.delivery_slot,
+        payment_method=order.payment_method,
+        payment_status=order.payment_status,
+        order_status=order.order_status,
+        subtotal=order.subtotal,
+        discount=order.discount,
+        delivery_fee=order.delivery_fee,
+        total_amount=order.total_amount,
+        created_at=order.created_at.strftime("%Y-%m-%d %H:%M:%S")
+    )
