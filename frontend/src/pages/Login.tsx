@@ -40,9 +40,9 @@ export const Login: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <div className="bg-white p-6 rounded-3xl border border-[#F4D6D2] shadow-sm space-y-6">
+      <div className="bg-white p-6 rounded-xl border border-[#E6E2F3] shadow-sm space-y-6">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-[#8B3A3A]">
+          <h1 className="text-2xl font-bold text-[#E5097F]">
             {isRegister ? t('নতুন অ্যাকাউন্ট তৈরি করুন', 'Create Account') : t('স্বাগতম!', 'Welcome Back!')}
           </h1>
         </div>
@@ -52,50 +52,50 @@ export const Login: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           {isRegister && (
             <div>
-              <label className="block font-bold text-[#2D2523] mb-1">{t('পূর্ণ নাম', 'Full Name')}</label>
+              <label className="block font-bold text-[#222222] mb-1">{t('পূর্ণ নাম', 'Full Name')}</label>
               <input
                 type="text"
                 required
                 value={form.full_name}
                 onChange={(e) => setForm({ ...form, full_name: e.target.value })}
-                className="w-full bg-[#FFF9F6] border border-[#F4D6D2] rounded-xl p-2.5"
+                className="w-full bg-[#F7F8F9] border border-[#E6E2F3] rounded-xl p-2.5"
               />
             </div>
           )}
 
           <div>
-            <label className="block font-bold text-[#2D2523] mb-1">{t('ইমেইল ঠিকানা', 'Email Address')}</label>
+            <label className="block font-bold text-[#222222] mb-1">{t('ইমেইল ঠিকানা', 'Email Address')}</label>
             <input
               type="email"
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full bg-[#FFF9F6] border border-[#F4D6D2] rounded-xl p-2.5"
+              className="w-full bg-[#F7F8F9] border border-[#E6E2F3] rounded-xl p-2.5"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-[#2D2523] mb-1">{t('পাসওয়ার্ড', 'Password')}</label>
+            <label className="block font-bold text-[#222222] mb-1">{t('পাসওয়ার্ড', 'Password')}</label>
             <input
               type="password"
               required
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full bg-[#FFF9F6] border border-[#F4D6D2] rounded-xl p-2.5"
+              className="w-full bg-[#F7F8F9] border border-[#E6E2F3] rounded-xl p-2.5"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#8B3A3A] hover:bg-[#6a2a2a] text-white font-bold py-3 rounded-full shadow-md"
+            className="w-full bg-[#E5097F] hover:bg-[#C40770] text-white font-bold py-3 rounded-md shadow-md"
           >
             {loading ? t('প্রসেস হচ্ছে...', 'Processing...') : isRegister ? t('রেজিস্টার করুন', 'Register') : t('লগইন করুন', 'Login')}
           </button>
         </form>
 
-        <div className="text-center text-xs text-[#756966]">
-          <button onClick={() => setIsRegister(!isRegister)} className="text-[#8B3A3A] font-bold hover:underline">
+        <div className="text-center text-xs text-[#666666]">
+          <button onClick={() => setIsRegister(!isRegister)} className="text-[#E5097F] font-bold hover:underline">
             {isRegister ? t('অ্যাকাউন্ট আছে? লগইন করুন', 'Have an account? Login') : t('নতুন অ্যাকাউন্ট খুলুন', 'Create new account')}
           </button>
         </div>

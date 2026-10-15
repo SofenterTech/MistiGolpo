@@ -35,8 +35,8 @@ export const ProductDetails: React.FC = () => {
     fetchProduct();
   }, [slug]);
 
-  if (loading) return <div className="text-center py-20 text-xs text-[#756966]">{t('লোড হচ্ছে...', 'Loading product details...')}</div>;
-  if (!product) return <div className="text-center py-20 text-sm font-bold text-[#8B3A3A]">{t('কেক পাওয়া যায়নি', 'Product not found')}</div>;
+  if (loading) return <div className="text-center py-20 text-xs text-[#666666]">{t('লোড হচ্ছে...', 'Loading product details...')}</div>;
+  if (!product) return <div className="text-center py-20 text-sm font-bold text-[#E5097F]">{t('কেক পাওয়া যায়নি', 'Product not found')}</div>;
 
   const basePrice = product.discount_price || product.base_price;
   const finalUnitPrice = basePrice + (selectedVariant ? selectedVariant.price_adjustment : 0);
@@ -60,14 +60,14 @@ export const ProductDetails: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-xs font-bold text-[#8B3A3A] hover:underline">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-xs font-bold text-[#E5097F] hover:underline">
         <ArrowLeft className="w-4 h-4" /> {t('ফিরে যান', 'Go Back')}
       </button>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-3xl p-6 md:p-8 border border-[#F4D6D2] shadow-sm">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-xl p-6 md:p-8 border border-[#E6E2F3] shadow-sm">
         {/* Images */}
         <div className="space-y-4">
-          <div className="aspect-square rounded-2xl overflow-hidden border border-[#F4D6D2] bg-[#FFF9F6]">
+          <div className="aspect-square rounded-lg overflow-hidden border border-[#E6E2F3] bg-[#F7F8F9]">
             <img
               src={product.images?.[0]?.image_url || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800'}
               alt={product.name_en}
@@ -79,23 +79,23 @@ export const ProductDetails: React.FC = () => {
         {/* Details */}
         <div className="space-y-6">
           <div>
-            <h1 className="text-2xl font-bold text-[#2D2523]">{t(product.name_bn, product.name_en)}</h1>
+            <h1 className="text-2xl font-bold text-[#222222]">{t(product.name_bn, product.name_en)}</h1>
             <div className="flex items-center gap-3 mt-2">
-              <span className="text-2xl font-extrabold text-[#8B3A3A]">৳{finalUnitPrice}</span>
+              <span className="text-2xl font-extrabold text-[#E5097F]">৳{finalUnitPrice}</span>
               {product.discount_price && (
-                <span className="text-sm text-[#756966] line-through">৳{product.base_price}</span>
+                <span className="text-sm text-[#666666] line-through">৳{product.base_price}</span>
               )}
             </div>
           </div>
 
-          <p className="text-xs text-[#756966] leading-relaxed">
+          <p className="text-xs text-[#666666] leading-relaxed">
             {t(product.description_bn || '', product.description_en || '')}
           </p>
 
           {/* Variants / Size */}
           {product.variants && product.variants.length > 0 && (
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-[#2D2523]">{t('সাইজ বেছে নিন:', 'Select Size:')}</label>
+              <label className="block text-xs font-bold text-[#222222]">{t('সাইজ বেছে নিন:', 'Select Size:')}</label>
               <div className="flex flex-wrap gap-2">
                 {product.variants.map((v: any) => (
                   <button
@@ -103,8 +103,8 @@ export const ProductDetails: React.FC = () => {
                     onClick={() => setSelectedVariant(v)}
                     className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${
                       selectedVariant?.id === v.id
-                        ? 'bg-[#8B3A3A] text-white border-[#8B3A3A]'
-                        : 'bg-white text-[#2D2523] border-[#F4D6D2] hover:border-[#8B3A3A]'
+                        ? 'bg-[#E5097F] text-white border-[#E5097F]'
+                        : 'bg-white text-[#222222] border-[#E6E2F3] hover:border-[#E5097F]'
                     }`}
                   >
                     {t(v.size_bn, v.size_en)} (+৳{v.price_adjustment})
@@ -116,7 +116,7 @@ export const ProductDetails: React.FC = () => {
 
           {/* Cake Message Input */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-[#2D2523]">
+            <label className="block text-xs font-bold text-[#222222]">
               {t('কেকের উপরের বার্তা (ঐচ্ছিক):', 'Cake Top Message (Optional):')}
             </label>
             <input
@@ -124,17 +124,17 @@ export const ProductDetails: React.FC = () => {
               placeholder={t('যেমন: হ্যাপি বার্থডে সামিন!', 'e.g., Happy Birthday Samin!')}
               value={cakeMessage}
               onChange={(e) => setCakeMessage(e.target.value)}
-              className="w-full bg-[#FFF9F6] border border-[#F4D6D2] rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-[#8B3A3A]"
+              className="w-full bg-[#F7F8F9] border border-[#E6E2F3] rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-[#E5097F]"
             />
           </div>
 
           {/* Quantity */}
           <div className="flex items-center gap-4">
-            <span className="text-xs font-bold text-[#2D2523]">{t('পরিমাণ:', 'Quantity:')}</span>
-            <div className="flex items-center border border-[#F4D6D2] rounded-xl overflow-hidden bg-[#FFF9F6]">
-              <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-1 font-bold text-[#8B3A3A]">-</button>
+            <span className="text-xs font-bold text-[#222222]">{t('পরিমাণ:', 'Quantity:')}</span>
+            <div className="flex items-center border border-[#E6E2F3] rounded-xl overflow-hidden bg-[#F7F8F9]">
+              <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-1 font-bold text-[#E5097F]">-</button>
               <span className="px-4 text-xs font-bold">{quantity}</span>
-              <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-1 font-bold text-[#8B3A3A]">+</button>
+              <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-1 font-bold text-[#E5097F]">+</button>
             </div>
           </div>
 
@@ -142,8 +142,8 @@ export const ProductDetails: React.FC = () => {
           <div className="pt-2 flex gap-4">
             <button
               onClick={handleAddToCart}
-              className={`flex-1 py-3 px-6 rounded-full font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all ${
-                added ? 'bg-[#3F7D58] text-white' : 'bg-[#8B3A3A] hover:bg-[#6a2a2a] text-white'
+              className={`flex-1 py-3 px-6 rounded-md font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all ${
+                added ? 'bg-[#3F7D58] text-white' : 'bg-[#E5097F] hover:bg-[#C40770] text-white'
               }`}
             >
               {added ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}

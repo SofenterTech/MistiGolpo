@@ -54,8 +54,8 @@ export const OrderTrack: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 space-y-8">
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold text-[#8B3A3A]">{t('অর্ডার ট্র্যাকিং', 'Track Your Order')}</h1>
-        <p className="text-xs text-[#756966]">{t('আপনার কেকের অবস্থান জেনে নিন খুব সহজেই', 'Stay updated on your cake status in real time')}</p>
+        <h1 className="text-2xl font-bold text-[#E5097F]">{t('অর্ডার ট্র্যাকিং', 'Track Your Order')}</h1>
+        <p className="text-xs text-[#666666]">{t('আপনার কেকের অবস্থান জেনে নিন খুব সহজেই', 'Stay updated on your cake status in real time')}</p>
       </div>
 
       {/* Search Input */}
@@ -65,9 +65,9 @@ export const OrderTrack: React.FC = () => {
           placeholder={t('অর্ডার নম্বর (যেমন: MG-20260327-1234)', 'Order ID (e.g., MG-20260327-1234)')}
           value={orderNumber}
           onChange={(e) => setOrderNumber(e.target.value)}
-          className="flex-1 bg-white border border-[#F4D6D2] rounded-full px-4 py-2.5 text-xs focus:outline-none focus:border-[#8B3A3A]"
+          className="flex-1 bg-white border border-[#E6E2F3] rounded-md px-4 py-2.5 text-xs focus:outline-none focus:border-[#E5097F]"
         />
-        <button type="submit" className="bg-[#8B3A3A] text-white font-bold px-6 py-2.5 rounded-full text-xs hover:bg-[#6a2a2a]">
+        <button type="submit" className="bg-[#E5097F] text-white font-bold px-6 py-2.5 rounded-md text-xs hover:bg-[#C40770]">
           {t('ট্র্যাক করুন', 'Track')}
         </button>
       </form>
@@ -75,15 +75,15 @@ export const OrderTrack: React.FC = () => {
       {error && <div className="text-center text-xs text-red-600 bg-red-50 p-3 rounded-xl border border-red-200">{error}</div>}
 
       {order && (
-        <div className="bg-white p-6 rounded-3xl border border-[#F4D6D2] shadow-sm space-y-6">
-          <div className="flex justify-between items-center border-b border-[#F4D6D2] pb-4 text-xs">
+        <div className="bg-white p-6 rounded-xl border border-[#E6E2F3] shadow-sm space-y-6">
+          <div className="flex justify-between items-center border-b border-[#E6E2F3] pb-4 text-xs">
             <div>
-              <p className="text-[#756966]">{t('অর্ডার নম্বর:', 'Order ID:')}</p>
-              <p className="font-extrabold text-sm text-[#8B3A3A]">{order.order_number}</p>
+              <p className="text-[#666666]">{t('অর্ডার নম্বর:', 'Order ID:')}</p>
+              <p className="font-extrabold text-sm text-[#E5097F]">{order.order_number}</p>
             </div>
             <div className="text-right">
-              <p className="text-[#756966]">{t('ডেলিভারির তারিখ:', 'Delivery Date:')}</p>
-              <p className="font-bold text-[#2D2523]">{order.delivery_date} ({order.delivery_slot})</p>
+              <p className="text-[#666666]">{t('ডেলিভারির তারিখ:', 'Delivery Date:')}</p>
+              <p className="font-bold text-[#222222]">{order.delivery_date} ({order.delivery_slot})</p>
             </div>
           </div>
 
@@ -97,11 +97,11 @@ export const OrderTrack: React.FC = () => {
                 return (
                   <div key={step.key} className="flex flex-col items-center space-y-2">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                      isDone ? 'bg-[#8B3A3A] text-white shadow-md' : 'bg-[#FFF9F6] text-[#756966] border border-[#F4D6D2]'
+                      isDone ? 'bg-[#E5097F] text-white shadow-md' : 'bg-[#F7F8F9] text-[#666666] border border-[#E6E2F3]'
                     }`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className={`text-[10px] font-bold ${isDone ? 'text-[#8B3A3A]' : 'text-[#756966]'}`}>
+                    <span className={`text-[10px] font-bold ${isDone ? 'text-[#E5097F]' : 'text-[#666666]'}`}>
                       {t(step.labelBn, step.labelEn)}
                     </span>
                   </div>
