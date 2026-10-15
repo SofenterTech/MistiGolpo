@@ -153,7 +153,7 @@ export const Home: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4">
         <div className="bg-[#F1EEFB] rounded-xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
           <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-[#E5097F] shrink-0">
-            <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500" alt="Founder Shami" className="w-full h-full object-cover" />
+            <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500" alt="Founder Shamia" className="w-full h-full object-cover" />
           </div>
           <div className="space-y-4 text-center md:text-left">
             <span className="text-xs font-bold text-[#20134B] uppercase tracking-wider">
@@ -161,12 +161,12 @@ export const Home: React.FC = () => {
             </span>
             <h3 className="text-2xl md:text-3xl font-bold text-[#000305]">
               {t('আমাদের প্রতিষ্ঠাতা ', 'Our Founder ')}
-              <span className="text-[#E5097F]">{t('শামীর গল্প', 'Shami\'s Story')}</span>
+              <span className="text-[#E5097F]">{t('শামিয়ার গল্প', 'Shamia\'s Story')}</span>
             </h3>
             <p className="text-xs md:text-sm text-[#555555] leading-relaxed">
               {t(
-                'কলেজ শিক্ষার্থী শামীর কেক বেকিং এর প্রতি গভীর ভালোবাসা থেকে মিষ্টি গল্পের জন্ম। প্রতিটি উৎসব যেন আরও আনন্দময় ও কেকের মিষ্টি স্বাদে পরিপূর্ণ হয়ে ওঠে - এই লক্ষ্যেই আমাদের পথচলা।',
-                'MistiGolpo started from a young college student Shami\'s passionate love for baking. Our goal is to make every celebration full of warmth, joy, and authentic sweetness.'
+                'কলেজ শিক্ষার্থী শামিয়ার কেক বেকিং এর প্রতি গভীর ভালোবাসা থেকে মিষ্টি গল্পের জন্ম। প্রতিটি উৎসব যেন আরও আনন্দময় ও কেকের মিষ্টি স্বাদে পরিপূর্ণ হয়ে ওঠে - এই লক্ষ্যেই আমাদের পথচলা।',
+                'MistiGolpo started from a young college student Shamia\'s passionate love for baking. Our goal is to make every celebration full of warmth, joy, and authentic sweetness.'
               )}
             </p>
             <Link to="/about" className="inline-block text-xs font-bold text-[#E5097F] hover:underline">

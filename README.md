@@ -1,7 +1,7 @@
 # 🍰 মিষ্টি গল্প — MistiGolpo
 > **প্রতিটি কেকে একটি মিষ্টি গল্প।** *(A sweet story in every cake.)*
 
-MistiGolpo is a modern, Bengali-first e-commerce platform for handcrafted celebration cakes, created by founder Shami, based in Tilagor, Sylhet, Bangladesh.
+MistiGolpo is a modern, Bengali-first e-commerce platform for handcrafted celebration cakes, created by founder Shamia, based in Tilagor, Sylhet, Bangladesh.
 
 ---
 

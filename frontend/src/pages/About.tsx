@@ -15,8 +15,8 @@ export const About: React.FC = () => {
       <div className="bg-white p-8 rounded-xl border border-[#E6E2F3] shadow-sm space-y-6 text-xs text-[#222222] leading-relaxed">
         <p>
           {t(
-            'মিষ্টি গল্প (MistiGolpo) একটি আধুনিক, প্রিমিয়াম ও উৎসবমুখর বাংলাদেশি কেক ব্রান্ড। এটি প্রতিষ্ঠা করেছেন তরুণ কলেজ শিক্ষার্থী শামী।',
-            'MistiGolpo is a modern, premium, Bengali-first celebration cake brand founded by a young college student, Shami.'
+            'মিষ্টি গল্প (MistiGolpo) একটি আধুনিক, প্রিমিয়াম ও উৎসবমুখর বাংলাদেশি কেক ব্রান্ড। এটি প্রতিষ্ঠা করেছেন তরুণ কলেজ শিক্ষার্থী শামিয়া।',
+            'MistiGolpo is a modern, premium, Bengali-first celebration cake brand founded by a young college student, Shamia.'
           )}
         </p>
         <p>
