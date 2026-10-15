@@ -27,7 +27,7 @@ export const AdminDashboard: React.FC = () => {
     fetchAdminData();
   }, []);
 
-  const handleUpdateStatus = async (orderId: int, newStatus: string) => {
+  const handleUpdateStatus = async (orderId: number, newStatus: string) => {
     try {
       await axios.put(`/api/admin/orders/${orderId}/status?status_str=${newStatus}`);
       setOrders(prev => prev.map(o => o.id === orderId ? { ...o, order_status: newStatus } : o));
